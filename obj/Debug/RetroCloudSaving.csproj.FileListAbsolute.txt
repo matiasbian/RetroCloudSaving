@@ -1,0 +1,11 @@
+C:\Users\matia\source\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.exe.config
+C:\Users\matia\source\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.exe
+C:\Users\matia\source\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.pdb
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.AssemblyReference.cache
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.SuggestedBindingRedirects.cache
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Properties.Resources.resources
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.GenerateResource.cache
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.CoreCompileInputs.cache
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.exe
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.pdb
+C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Form1.resources
