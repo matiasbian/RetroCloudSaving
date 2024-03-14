@@ -9,3 +9,13 @@ C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.C
 C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.exe
 C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.pdb
 C:\Users\matia\source\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Form1.resources
+D:\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.exe.config
+D:\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.exe
+D:\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.pdb
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.AssemblyReference.cache
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Form1.resources
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Properties.Resources.resources
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.GenerateResource.cache
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.CoreCompileInputs.cache
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.exe
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.pdb

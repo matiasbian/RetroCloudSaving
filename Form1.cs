@@ -1,10 +1,14 @@
 ﻿using Microsoft.Win32;
+using RetroCloudSaving.Network;
+using RetroCloudSaving.Processes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +17,7 @@ namespace RetroCloudSaving
 {
     public partial class Form1 : Form
     {
+        IFileSyncer fileSyncer = new Network.FTPRequest();
         public Form1()
         {
             InitializeComponent();
@@ -30,24 +35,46 @@ namespace RetroCloudSaving
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*const string userRoot = "HKEY_CURRENT_USER";
-            const string subkey = "RegistrySetValueExample";
-            const string keyName = userRoot + "\\" + subkey;
-
-            string value = "";
-            value = (string) Registry.GetValue(keyName, value, "NO VALUE");
-            MessageBox.Show(value);*/
             SaveYuGiOhPowerOfChaos();
             
         }
 
         private async void SaveYuGiOhPowerOfChaos ()
         {
-            string game_path = @"C:\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\";
-            string file_path = "Region.dat";
+            string game_path = @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\";
+            
+            string[] fileEntries = Directory.GetFiles(game_path);
+      
+            fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+        }
 
-            await FTPRequest.Main(file_path, game_path);
-            MessageBox.Show("Task finalized");
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DownloadFile();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Starting process");
+            ProcessHandler.StartProcess("yugi_pc.exe", @"C:\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Version2\", UploadFile);
+        }
+
+        async void  UploadFile ()
+        {
+            string game_path = @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\";
+
+            string[] fileEntries = Directory.GetFiles(game_path);
+
+            await fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+        }
+
+        async void DownloadFile ()
+        {
+            string game_path = @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\";
+
+            string[] fileEntries = Directory.GetFiles(game_path);
+
+            await fileSyncer.DownloadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
         }
     }
 }
