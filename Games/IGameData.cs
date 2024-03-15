@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RetroCloudSaving.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace RetroCloudSaving.Games
         string GetExecutableName();
         string GetID();
 
+        void UploadExtras(IFileSyncer fileSyncer);
+        void DownloadExtras(IFileSyncer fileSyncer);
     }
 }

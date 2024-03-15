@@ -12,7 +12,7 @@ namespace RetroCloudSaving.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,24 +26,12 @@ namespace RetroCloudSaving.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string YUGIOH_POC_YD_PATH_EXE {
+        public string YUGIOH_POC_YD_PATH {
             get {
-                return ((string)(this["YUGIOH_POC_YD_PATH_EXE"]));
+                return ((string)(this["YUGIOH_POC_YD_PATH"]));
             }
             set {
-                this["YUGIOH_POC_YD_PATH_EXE"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string YUGIOH_POC_YD_PATH_FOLDER {
-            get {
-                return ((string)(this["YUGIOH_POC_YD_PATH_FOLDER"]));
-            }
-            set {
-                this["YUGIOH_POC_YD_PATH_FOLDER"] = value;
+                this["YUGIOH_POC_YD_PATH"] = value;
             }
         }
     }

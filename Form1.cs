@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using RetroCloudSaving.Games;
 using RetroCloudSaving.Network;
+using RetroCloudSaving.Persistence;
 using RetroCloudSaving.Processes;
 using RetroCloudSaving.Properties;
 using System;
@@ -20,8 +21,10 @@ namespace RetroCloudSaving
 {
     public partial class Form1 : Form
     {
+        const string PATH_ID = "_PATH";
+
         IFileSyncer fileSyncer = new Network.FTPRequest();
-        DisplayableGame gameSelected;
+        IGameData gameSelected;
         public Form1()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace RetroCloudSaving
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gameSelected = (DisplayableGame)comboBox1.SelectedValue;
+            gameSelected = ((DisplayableGame)comboBox1.SelectedValue).game;
             DownloadFile();
         }
 
@@ -57,27 +60,34 @@ namespace RetroCloudSaving
         private void button3_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Starting process");
-            ProcessHandler.StartProcess(gameSelected.GetExePath(), gameSelected.GetFolderPath(), UploadFile);
+            string loadedData = SimpleStorage.Load(gameSelected.GetID() + PATH_ID, gameSelected.GetExecutableName());
+            string exepath = Path.GetFileName(loadedData);
+
+            string folderpath = loadedData.Replace(exepath, "");
+            Console.WriteLine("folderpath " + folderpath);
+
+            ProcessHandler.StartProcess(exepath, folderpath, UploadFile);
         }
 
         async void  UploadFile ()
         {
-            foreach (string game_path in gameSelected.game.GetSavePaths())
+            foreach (string game_path in gameSelected.GetSavePaths())
             {
                 string[] fileEntries = Directory.GetFiles(game_path);
-
                 await fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
             }
+            gameSelected.UploadExtras(fileSyncer);
         }
 
         async void DownloadFile ()
         {
-            foreach (string game_path in gameSelected.game.GetSavePaths())
+            foreach (string game_path in gameSelected.GetSavePaths())
             {
                 string[] fileEntries = Directory.GetFiles(game_path);
 
                 await fileSyncer.DownloadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
             }
+            gameSelected.DownloadExtras(fileSyncer);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -85,17 +95,11 @@ namespace RetroCloudSaving
             System.Diagnostics.Process.Start("http://mati.games");
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
             Console.WriteLine(openFileDialog1.FileName);
-            gameSelected.SaveNewPath(openFileDialog1.FileName);
-            
+            SimpleStorage.Save(gameSelected.GetID() + PATH_ID, openFileDialog1.FileName);
         }
 
       
