@@ -8,14 +8,14 @@ namespace RetroCloudSaving.Games.Instances
 {
     internal class YuGiOhPowerOfChaos : IGameData
     {
-        public string GetSavePath()
+        public string[] GetSavePaths()
         {
-            return @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\";  
+            return new string[1] { @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos Common" };  
         }
 
         public string GetExecutablePath()
         {
-            return @"C:\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Version2\";
+            return @"C:\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY";
         }
         public string GetExecutableName()
         {

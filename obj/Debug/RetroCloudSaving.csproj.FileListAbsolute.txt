@@ -19,3 +19,14 @@ D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.GenerateResource.cac
 D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.CoreCompileInputs.cache
 D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.exe
 D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.pdb
+C:\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.exe.config
+C:\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.exe
+C:\repos\RetroCloudSaving\bin\Debug\RetroCloudSaving.pdb
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.AssemblyReference.cache
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.SuggestedBindingRedirects.cache
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Form1.resources
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Properties.Resources.resources
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.GenerateResource.cache
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.CoreCompileInputs.cache
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.exe
+C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.pdb

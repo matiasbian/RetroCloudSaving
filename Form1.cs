@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,16 +44,8 @@ namespace RetroCloudSaving
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SaveYuGiOhPowerOfChaos();
+            UploadFile();
             
-        }
-
-        private async void SaveYuGiOhPowerOfChaos ()
-        {
-            
-            string[] fileEntries = Directory.GetFiles(gameSelected.GetSavePath());
-      
-            await fileSyncer.UploadFile(fileEntries, gameSelected.GetSavePath(), () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -68,25 +61,33 @@ namespace RetroCloudSaving
 
         async void  UploadFile ()
         {
-            string game_path = @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\";
+            foreach (string game_path in gameSelected.GetSavePaths())
+            {
+                string[] fileEntries = Directory.GetFiles(game_path);
 
-            string[] fileEntries = Directory.GetFiles(game_path);
-
-            await fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+                await fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+            }
         }
 
         async void DownloadFile ()
         {
-            string game_path = @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\";
+            foreach (string game_path in gameSelected.GetSavePaths())
+            {
+                string[] fileEntries = Directory.GetFiles(game_path);
 
-            string[] fileEntries = Directory.GetFiles(game_path);
-
-            await fileSyncer.DownloadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+                await fileSyncer.DownloadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://mati.games");
         }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
     }
 }

@@ -8,7 +8,7 @@ namespace RetroCloudSaving.Games
 {
     public interface IGameData
     {
-        string GetSavePath();
+        string[] GetSavePaths();
 
         string GetExecutablePath();
         string GetExecutableName();
