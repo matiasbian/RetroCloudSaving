@@ -2,6 +2,7 @@
 using RetroCloudSaving.Games;
 using RetroCloudSaving.Network;
 using RetroCloudSaving.Processes;
+using RetroCloudSaving.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace RetroCloudSaving
     public partial class Form1 : Form
     {
         IFileSyncer fileSyncer = new Network.FTPRequest();
-        IGameData gameSelected;
+        DisplayableGame gameSelected;
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace RetroCloudSaving
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gameSelected = ((DisplayableGame)comboBox1.SelectedValue).game;
+            gameSelected = (DisplayableGame)comboBox1.SelectedValue;
             DownloadFile();
         }
 
@@ -56,12 +57,12 @@ namespace RetroCloudSaving
         private void button3_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Starting process");
-            ProcessHandler.StartProcess(gameSelected.GetExecutableName(), gameSelected.GetExecutablePath(), UploadFile);
+            ProcessHandler.StartProcess(gameSelected.GetExePath(), gameSelected.GetFolderPath(), UploadFile);
         }
 
         async void  UploadFile ()
         {
-            foreach (string game_path in gameSelected.GetSavePaths())
+            foreach (string game_path in gameSelected.game.GetSavePaths())
             {
                 string[] fileEntries = Directory.GetFiles(game_path);
 
@@ -71,7 +72,7 @@ namespace RetroCloudSaving
 
         async void DownloadFile ()
         {
-            foreach (string game_path in gameSelected.GetSavePaths())
+            foreach (string game_path in gameSelected.game.GetSavePaths())
             {
                 string[] fileEntries = Directory.GetFiles(game_path);
 
@@ -89,5 +90,14 @@ namespace RetroCloudSaving
 
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            Console.WriteLine(openFileDialog1.FileName);
+            gameSelected.SaveNewPath(openFileDialog1.FileName);
+            
+        }
+
+      
     }
 }

@@ -12,5 +12,7 @@ namespace RetroCloudSaving.Games
 
         string GetExecutablePath();
         string GetExecutableName();
+        string GetID();
+
     }
 }

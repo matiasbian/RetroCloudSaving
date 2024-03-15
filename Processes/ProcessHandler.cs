@@ -11,9 +11,12 @@ namespace RetroCloudSaving.Processes
         public static void StartProcess(string processName, string path, Action onProcessExit, string arguments = "")
         {
             Process process = new Process();
-            process.StartInfo.FileName = path + processName;
+            Console.WriteLine("PATH " + path);
+            Console.WriteLine("processName " + processName);
+            Console.WriteLine("fullname " + (path + processName));
+            process.StartInfo.FileName = path + @"\" + processName;
             process.StartInfo.UseShellExecute = false;
-            process.StartInfo.WorkingDirectory = path;
+            process.StartInfo.WorkingDirectory = path + @"\";
 
             if (arguments != "")
             {
