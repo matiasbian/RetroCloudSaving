@@ -22,6 +22,7 @@ namespace RetroCloudSaving.Network
 
                 // This example assumes the FTP site uses anonymous logon.
                 request.Credentials = new NetworkCredential(USERNAME, PASSWORD);
+                request.Timeout = 50000;
 
                 Console.WriteLine("Starting uploading file process");
                 Console.WriteLine("Opening file...");
@@ -32,12 +33,14 @@ namespace RetroCloudSaving.Network
                     using (Stream requestStream = request.GetRequestStream())
                     {
                         Console.WriteLine("Copying file to server...");
-                        await fileStream.CopyToAsync(requestStream); // When this line is completed, should execute successCallback
-                        Console.WriteLine(request.GetResponse());
-                        using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                        await fileStream.CopyToAsync(requestStream);
+                        Console.WriteLine("Upload finished");
+                        fileStream.Close();
+                        
+                        /*using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
                         {
                             Console.WriteLine($"Upload File Complete, status {response.StatusDescription}");
-                        }
+                        }*/
                     }
                 }
             }
@@ -83,18 +86,19 @@ namespace RetroCloudSaving.Network
                 {
                     byte[] data = (byte[])e.Result;
                     string textData = System.Text.Encoding.UTF8.GetString(data);
-
+                    Console.WriteLine(textData);
                     using (FileStream file = File.Create(inputfilepath))
                     {
                         file.Write(data, 0, data.Length);
                         file.Close();
+                        Console.WriteLine("Saved file " + inputfilepath);
                     }
                 }
             }
             finally
             {
                 // Let the main application thread resume.
-                waiter.Set();
+                //waiter.Set();
             }
         }
     }
