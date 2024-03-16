@@ -61,22 +61,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\EditGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditGame.Designer.cs">
+      <DependentUpon>EditGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Games\GamesHandler.cs" />
     <Compile Include="Games\IGameData.cs" />
+    <Compile Include="Games\Instances\TheHouseOfTheDead2.cs" />
     <Compile Include="Games\Instances\YuGiOhPowerOfChaos.cs" />
     <Compile Include="Network\IFileSyncer.cs" />
     <Compile Include="Network\FtpRequest.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\SimpleStorage.cs" />
     <Compile Include="Processes\ProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Forms\EditGame.resx">
+      <DependentUpon>EditGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

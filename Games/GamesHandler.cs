@@ -14,7 +14,8 @@ namespace RetroCloudSaving.Games
 
         public static DisplayableGame[] games = new DisplayableGame[]
         {
-            new DisplayableGame("Yu Gi Oh! Power Of Chaos Yugi the Destiny ", new Instances.YuGiOhPowerOfChaos())
+            new DisplayableGame("Yu Gi Oh! Power Of Chaos Yugi the Destiny ", new Instances.YuGiOhPowerOfChaos()),
+            new DisplayableGame("The House Of The Dead 2", new Instances.TheHouseOfTheDead2())
         };
     }
 

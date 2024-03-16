@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using RetroCloudSaving.Forms;
 using RetroCloudSaving.Games;
 using RetroCloudSaving.Network;
 using RetroCloudSaving.Persistence;
@@ -81,6 +82,12 @@ namespace RetroCloudSaving
 
         async void DownloadFile ()
         {
+            if (Directory.Exists(gameSelected.GetExecutablePath()))
+            {
+                Console.WriteLine("Game isn't installed, avoiding downloading it");
+                return;
+            }
+
             foreach (string game_path in gameSelected.GetSavePaths())
             {
                 string[] fileEntries = Directory.GetFiles(game_path);
@@ -97,9 +104,10 @@ namespace RetroCloudSaving
 
         private void button4_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            Console.WriteLine(openFileDialog1.FileName);
-            SimpleStorage.Save(gameSelected.GetID() + PATH_ID, openFileDialog1.FileName);
+            EditGame editGame = new EditGame(gameSelected, PATH_ID);
+            editGame.ShowDialog();
+            return;
+            
         }
 
       
