@@ -27,7 +27,7 @@ namespace RetroCloudSaving.Network
                 Console.WriteLine("Starting uploading file process");
                 Console.WriteLine("Opening file...");
                 // Copy the contents of the file to the request stream.
-                using (FileStream fileStream = File.Open(game_path + filename, FileMode.Open, FileAccess.Read))
+                using (FileStream fileStream = File.Open(game_path + @"\" + filename, FileMode.Open, FileAccess.Read))
                 {
                     Console.WriteLine("Requiesting file uploading permissions...");
                     using (Stream requestStream = request.GetRequestStream())

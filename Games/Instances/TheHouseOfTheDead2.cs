@@ -14,14 +14,9 @@ namespace RetroCloudSaving.Games.Instances
             
         }
 
-        public string GetExecutableName()
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetExecutablePath()
         {
-            throw new NotImplementedException();
+            return @"C:\Program Files (x86)\SEGA\THE HOUSE OF THE DEAD 2\Hod2.exe";
         }
 
         public string GetID()

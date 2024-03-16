@@ -5,7 +5,13 @@
     <Setting Name="YUGIOH_POC_YD_PATH" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="THOTD2_POC_YD_PATH" Type="System.String" Scope="User">
+    <Setting Name="THOTD2_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="THOTD2_SAVEPATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="YUGIOH_POC_YD_SAVEPATH" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

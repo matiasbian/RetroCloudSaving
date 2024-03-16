@@ -12,7 +12,6 @@ namespace RetroCloudSaving.Games
         string[] GetSavePaths();
 
         string GetExecutablePath();
-        string GetExecutableName();
         string GetID();
 
         void UploadExtras(IFileSyncer fileSyncer);

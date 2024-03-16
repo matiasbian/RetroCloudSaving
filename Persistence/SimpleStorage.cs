@@ -12,17 +12,36 @@ namespace RetroCloudSaving.Persistence
         {
             Properties.Settings.Default[key] = value;
             Properties.Settings.Default.Save();
-            Console.WriteLine("saved Key " + key + " saved value " + value);
             string value2 = (string)Properties.Settings.Default[key];
-            Console.WriteLine("Loaded Key " + key + " laoded value " + value2);
 
+        }
+
+        public static void Save(string key, string[] value)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var v in value)
+            {
+                if (stringBuilder.Length > 0)
+                    stringBuilder.Append(",");
+
+                stringBuilder.Append(v);
+            }
+
+            Save(key, stringBuilder.ToString());
+
+        }
+
+        public static string[] Load(string key, string[] defaultValue)
+        {
+            string[] value = ((string)Properties.Settings.Default[key]).Split(',');
+
+            return value.Length == 0 || (value.Length == 1 && string.IsNullOrWhiteSpace(value[0])) ? defaultValue : value;
         }
 
         public static string Load(string key, string defaultValue)
         {
             string value = (string)Properties.Settings.Default[key];
-            Console.WriteLine("Loaded Key " + key + " laoded value " + value);
-            Console.WriteLine("value is empty " + (value == string.Empty ? defaultValue : value));
             return value == string.Empty ? defaultValue : value;
         }
     }

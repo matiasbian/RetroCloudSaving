@@ -12,16 +12,12 @@ namespace RetroCloudSaving.Games.Instances
     {
         public string[] GetSavePaths()
         {
-            return new string[1] { @"C:\Users\matia\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common\" };  
+            return new string[1] { Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\VirtualStore\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\Yu-Gi-Oh! Power of Chaos Common" };  
         }
 
         public string GetExecutablePath()
         {
-            return @"C:\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY";
-        }
-        public string GetExecutableName()
-        {
-            return "yugi_pc.exe";
+            return @"C:\Program Files (x86)\KONAMI\Yu-Gi-Oh! Power of Chaos YUGI THE DESTINY\yugi_pc.exe";
         }
 
         public string GetID()

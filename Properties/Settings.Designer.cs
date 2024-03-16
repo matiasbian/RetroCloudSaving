@@ -38,12 +38,36 @@ namespace RetroCloudSaving.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string THOTD2_POC_YD_PATH {
+        public string THOTD2_PATH {
             get {
-                return ((string)(this["THOTD2_POC_YD_PATH"]));
+                return ((string)(this["THOTD2_PATH"]));
             }
             set {
-                this["THOTD2_POC_YD_PATH"] = value;
+                this["THOTD2_PATH"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string THOTD2_SAVEPATH {
+            get {
+                return ((string)(this["THOTD2_SAVEPATH"]));
+            }
+            set {
+                this["THOTD2_SAVEPATH"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string YUGIOH_POC_YD_SAVEPATH {
+            get {
+                return ((string)(this["YUGIOH_POC_YD_SAVEPATH"]));
+            }
+            set {
+                this["YUGIOH_POC_YD_SAVEPATH"] = value;
             }
         }
     }
