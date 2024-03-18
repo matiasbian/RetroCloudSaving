@@ -22,14 +22,11 @@ namespace RetroCloudSaving
 {
     public partial class Form1 : Form
     {
-        const string PATH_ID = "_PATH";
-        const string SAVE_PATH_ID = "_SAVEPATH";
-
-        IFileSyncer fileSyncer = new Network.FTPRequest();
-        IGameData gameSelected;
+        AppStateManager stateManager;
         public Form1()
         {
             InitializeComponent();
+            stateManager = new AppStateManager();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -44,68 +41,18 @@ namespace RetroCloudSaving
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gameSelected = ((DisplayableGame)comboBox1.SelectedValue).game;
-            DownloadFile();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            UploadFile();
-            
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            DownloadFile();
+            stateManager.ChangeGameSelected(((DisplayableGame)comboBox1.SelectedValue).game);
+            stateManager.DownloadData();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Starting process");
-            string loadedData = SimpleStorage.Load(gameSelected.GetID() + PATH_ID, Path.GetFileName(gameSelected.GetExecutablePath()));
-            string exepath = Path.GetFileName(loadedData);
-
-            string folderpath = loadedData.Replace(exepath, "");
-            Console.WriteLine("folderpath " + folderpath);
-
-            ProcessHandler.StartProcess(exepath, folderpath, UploadFile);
+            stateManager.StartGame();
         }
 
-        async void  UploadFile ()
-        {
-            string[] savePaths = SimpleStorage.Load(gameSelected.GetID() + SAVE_PATH_ID, gameSelected.GetSavePaths());
+        
 
-            foreach (string game_path in savePaths)
-            {
-                string[] fileEntries = Directory.GetFiles(game_path);
-                await fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
-            }
-            gameSelected.UploadExtras(fileSyncer);
-        }
-
-        async void DownloadFile ()
-        {
-            if (!Directory.Exists(gameSelected.GetExecutablePath()))
-            {
-                Console.WriteLine("Game isn't installed, avoiding downloading it");
-                return;
-            }
-
-
-            foreach (string game_path in gameSelected.GetSavePaths())
-            {
-                if (!Directory.Exists(game_path))
-                {
-                    Console.WriteLine("Save location doesn't exists, avoiding downloading it");
-                    continue;
-                }
-
-                string[] fileEntries = Directory.GetFiles(game_path);
-
-                await fileSyncer.DownloadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
-            }
-            gameSelected.DownloadExtras(fileSyncer);
-        }
+        
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -114,15 +61,10 @@ namespace RetroCloudSaving
 
         private void button4_Click(object sender, EventArgs e)
         {
-            EditGame editGame = new EditGame(gameSelected, PATH_ID, SAVE_PATH_ID);
+            EditGame editGame = new EditGame(stateManager);
             editGame.ShowDialog();
             return;
             
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

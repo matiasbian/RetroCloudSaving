@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppStateManager.cs" />
     <Compile Include="Forms\EditGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +80,7 @@
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Network\Syncer.cs" />
     <Compile Include="Persistence\SimpleStorage.cs" />
     <Compile Include="Processes\ProcessHandler.cs" />
     <Compile Include="Program.cs" />

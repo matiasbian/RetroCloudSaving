@@ -15,22 +15,18 @@ namespace RetroCloudSaving.Forms
 {
     public partial class EditGame : Form
     {
-        IGameData game;
-        string PATH_ID;
-        string SAVE_PATH_ID;
-        public EditGame(IGameData game, string PATH_ID, string SAVE_PATH_ID)
+        AppStateManager stateManager;
+        public EditGame(AppStateManager stateManager)
         {
             InitializeComponent();
-            this.game = game;
-            this.PATH_ID = PATH_ID;
-            this.SAVE_PATH_ID = SAVE_PATH_ID;
+            this.stateManager = stateManager;
         }
 
         private void EditGame_Load(object sender, EventArgs e)
         {
-            string loadedData = SimpleStorage.Load(game.GetID() + PATH_ID, game.GetExecutablePath());
+            string loadedData = stateManager.GetGamePathData();
 
-            string[] savePaths = SimpleStorage.Load(game.GetID() + SAVE_PATH_ID, game.GetSavePaths());
+            string[] savePaths = stateManager.GetSaveGamePathsData();
             foreach (var s in savePaths)
             {
                 Console.WriteLine("[SAVE PATH ] " + s);
@@ -44,9 +40,10 @@ namespace RetroCloudSaving.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+            stateManager.SaveGameExeData(openFileDialog1.FileName);
             Console.WriteLine(openFileDialog1.FileName);
             path_value.Text  = openFileDialog1.FileName;
-            SimpleStorage.Save(game.GetID() + PATH_ID, openFileDialog1.FileName);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -64,14 +61,14 @@ namespace RetroCloudSaving.Forms
             folderBrowserDialog1.ShowDialog();
             pathslist.Items.Add(folderBrowserDialog1.SelectedPath);
             string[] savePaths = pathslist.Items.Cast<string>().ToArray();
-            SimpleStorage.Save(game.GetID() + SAVE_PATH_ID, savePaths);
+            stateManager.SaveSavedGamePaths(savePaths);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             pathslist.Items.RemoveAt(pathslist.SelectedIndex);
             string[] savePaths = pathslist.Items.Cast<string>().ToArray();
-            SimpleStorage.Save(game.GetID() + SAVE_PATH_ID, savePaths);
+            stateManager.SaveSavedGamePaths(savePaths);
         }
     }
 }
