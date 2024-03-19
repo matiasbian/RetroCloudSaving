@@ -27,10 +27,6 @@ namespace RetroCloudSaving.Forms
             string loadedData = stateManager.GetGamePathData();
 
             string[] savePaths = stateManager.GetSaveGamePathsData();
-            foreach (var s in savePaths)
-            {
-                Console.WriteLine("[SAVE PATH ] " + s);
-            }
             pathslist.Items.Clear();
             pathslist.Items.AddRange(savePaths);
 
@@ -41,7 +37,6 @@ namespace RetroCloudSaving.Forms
         {
             openFileDialog1.ShowDialog();
             stateManager.SaveGameExeData(openFileDialog1.FileName);
-            Console.WriteLine(openFileDialog1.FileName);
             path_value.Text  = openFileDialog1.FileName;
             
         }

@@ -21,40 +21,59 @@ namespace RetroCloudSaving
         IFileSyncer fileSyncer = new Network.FTPRequest();
         IGameData gameSelected;
 
-        public async void UploadData()
+        public async Task UploadData(Action successCallback, Action failureCallback)
         {
-            string[] savePaths = SimpleStorage.Load(gameSelected.GetID() + SAVE_PATH_ID, gameSelected.GetSavePaths());
-
-            foreach (string game_path in savePaths)
+            try
             {
-                string[] fileEntries = Directory.GetFiles(game_path);
-                await fileSyncer.UploadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+                string[] savePaths = SimpleStorage.Load(gameSelected.GetID() + SAVE_PATH_ID, gameSelected.GetSavePaths());
+                foreach (string game_path in savePaths)
+                {
+                    string[] fileEntries = Directory.GetFiles(game_path);
+                    await fileSyncer.UploadFile(fileEntries, game_path, successCallback, failureCallback);
+                }
+                gameSelected.UploadExtras(fileSyncer);
             }
-            gameSelected.UploadExtras(fileSyncer);
+            catch(Exception e)
+            {
+                Console.WriteLine("Error uploading data: " + e.Message);
+                failureCallback?.Invoke();
+            }
         }
 
-        public async void DownloadData()
+        public async Task DownloadData(Action successCallback, Action failureCallback)
         {
-            if (!Directory.Exists(gameSelected.GetExecutablePath()))
-            {
-                Console.WriteLine("Game isn't installed, avoiding downloading it");
-                return;
-            }
+            string loadedData = SimpleStorage.Load(gameSelected.GetID() + PATH_ID, Path.GetFileName(gameSelected.GetExecutablePath()));
+            loadedData = Path.GetDirectoryName(loadedData);
 
-
-            foreach (string game_path in gameSelected.GetSavePaths())
+            try
             {
-                if (!Directory.Exists(game_path))
+                if (!Directory.Exists(loadedData))
                 {
-                    Console.WriteLine("Save location doesn't exists, avoiding downloading it");
-                    continue;
+                    Console.WriteLine("Game isn't installed, avoiding downloading it");
+                    return;
                 }
 
-                string[] fileEntries = Directory.GetFiles(game_path);
+                string[] savePaths = SimpleStorage.Load(gameSelected.GetID() + SAVE_PATH_ID, gameSelected.GetSavePaths());
+                foreach (string game_path in savePaths)
+                {
+                    if (!Directory.Exists(game_path))
+                    {
+                        Console.WriteLine("Save location doesn't exists, avoiding downloading it");
+                        continue;
+                    }
 
-                await fileSyncer.DownloadFile(fileEntries, game_path, () => { Console.Write("Success"); }, () => { Console.WriteLine("Failed"); });
+                    string[] fileEntries = Directory.GetFiles(game_path);
+
+                    await fileSyncer.DownloadFile(fileEntries, game_path, successCallback, failureCallback);
+                }
+                gameSelected.DownloadExtras(fileSyncer);
+
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine("Error downloading data: " + e.Message);
+                failureCallback?.Invoke();
             }
-            gameSelected.DownloadExtras(fileSyncer);
         }
 
         public void ChangeGameSelected(IGameData gameSelected)
@@ -74,9 +93,9 @@ namespace RetroCloudSaving
             string exepath = Path.GetFileName(loadedData);
 
             string folderpath = loadedData.Replace(exepath, "");
-            Console.WriteLine("folderpath " + folderpath);
 
-            ProcessHandler.StartProcess(exepath, folderpath, UploadData);
+            ProcessHandler.StartProcess(exepath, folderpath);
+            
         }
 
         public string GetGamePathData ()

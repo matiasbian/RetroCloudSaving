@@ -65,7 +65,7 @@ namespace RetroCloudSaving.Network
                     request.DownloadDataCompleted +=  (sender, e) =>
                     {
                         Console.WriteLine("Download Completed");
-                        ByteRequestAsync(sender, e, inputfilepath);
+                        ByteRequestAsync(sender, e, inputfilepath, successCallback, failureCallback);
                     };
                     request.DownloadDataAsync(new Uri(ftpfullpath));  
                 }
@@ -74,7 +74,7 @@ namespace RetroCloudSaving.Network
 
         }
 
-        static void ByteRequestAsync(object sender, DownloadDataCompletedEventArgs e, string inputfilepath)
+        static void ByteRequestAsync(object sender, DownloadDataCompletedEventArgs e, string inputfilepath, Action successCallback, Action failureCallback)
         {
             System.Threading.AutoResetEvent waiter = (System.Threading.AutoResetEvent)e.UserState;
 
@@ -92,8 +92,20 @@ namespace RetroCloudSaving.Network
                         file.Write(data, 0, data.Length);
                         file.Close();
                         Console.WriteLine("Saved file " + inputfilepath);
+                        successCallback?.Invoke();
                     }
                 }
+                else
+                {
+                    Console.WriteLine("Error downloading file: " + e.Error);
+                    failureCallback?.Invoke();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error downloading file: " + ex.Message);
+                failureCallback?.Invoke();
             }
             finally
             {

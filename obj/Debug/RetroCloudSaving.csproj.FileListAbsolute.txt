@@ -31,3 +31,4 @@ C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.csproj.CoreCompileInputs.ca
 C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.exe
 C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.pdb
 C:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Forms.EditGame.resources
+D:\repos\RetroCloudSaving\obj\Debug\RetroCloudSaving.Forms.EditGame.resources

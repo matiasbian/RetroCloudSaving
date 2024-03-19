@@ -39,20 +39,46 @@ namespace RetroCloudSaving
             //DownloadFile();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             stateManager.ChangeGameSelected(((DisplayableGame)comboBox1.SelectedValue).game);
-            stateManager.DownloadData();
+
+            infoLabel.Text = "Downloading game data...";
+            infoLabel.ForeColor = Color.Black;
+
+            await stateManager.DownloadData(
+                () => 
+                {
+                    infoLabel.Text = "Data synced successfully";
+                    infoLabel.ForeColor = Color.Green;
+                },
+                () =>
+                {
+                    infoLabel.Text = "Data sync failed";
+                    infoLabel.ForeColor = Color.Red;
+                }
+            );
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
+            infoLabel.Text = "";
+            infoLabel.ForeColor = Color.Black;
+
             stateManager.StartGame();
+            await stateManager.UploadData(
+                () =>
+                {
+                    infoLabel.Text = "Data uploaded successfully";
+                    infoLabel.ForeColor = Color.Green;
+                },
+                () =>
+                {
+                    infoLabel.Text = "Data upload failed";
+                    infoLabel.ForeColor = Color.Red;
+                }
+            );
         }
-
-        
-
-        
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

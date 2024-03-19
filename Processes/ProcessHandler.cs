@@ -8,12 +8,9 @@ namespace RetroCloudSaving.Processes
 {
     internal class ProcessHandler
     {
-        public static void StartProcess(string processName, string path, Action onProcessExit, string arguments = "")
+        public static void StartProcess(string processName, string path, string arguments = "")
         {
             Process process = new Process();
-            Console.WriteLine("PATH " + path);
-            Console.WriteLine("processName " + processName);
-            Console.WriteLine("fullname " + (path + processName));
             process.StartInfo.FileName = path + @"\" + processName;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.WorkingDirectory = path + @"\";
@@ -24,8 +21,7 @@ namespace RetroCloudSaving.Processes
             }
 
             process.Start();
-            process.WaitForExit();
-            onProcessExit?.Invoke();
+            process.WaitForExit();              
         }
 
     }
